@@ -20,7 +20,7 @@ public class JwtTokenService {
     public String gerarToken(Usuario usuario) {
         return JWT.create()
                 .withIssuer("com.portodoitaqui.secapi")
-//                .withClaim("role", usuario.getRole().getRole())
+                .withClaim("role", usuario.getRole().name())
                 .withIssuedAt(LocalDateTime.now().toInstant(ZoneOffset.of("-03:00")))
                 .withSubject(usuario.getEmail())
                 .withExpiresAt(LocalDateTime.now().plusHours(12).toInstant(ZoneOffset.of("-03:00")))

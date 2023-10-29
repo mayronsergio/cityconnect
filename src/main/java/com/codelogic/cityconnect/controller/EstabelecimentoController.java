@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,16 +33,19 @@ public class EstabelecimentoController {
         this.estabelecimentoMapper = estabelecimentoMapper;
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public EstabelecimentoResponseDto criar(@ParameterObject @Valid @ModelAttribute EstabelecimentoRequestDto entity) throws IOException {
         return estabelecimentoService.salvar(entity);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping(value = "/{idEstabelecimento}/adicionarFotoAmbiente", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public void adicionarFotoAmbiente(@PathVariable(value = "idEstabelecimento") Long idEstabelecimento, @Parameter @RequestParam MultipartFile fotoAmbiente) throws IOException {
         estabelecimentoService.adicionarFotoAmbiente(idEstabelecimento, fotoAmbiente);
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<EstabelecimentoResponseDto> buscarPorId(@PathVariable Long id) {
         Optional<Estabelecimento> entity = estabelecimentoService.buscarPorId(id);
@@ -53,12 +57,13 @@ public class EstabelecimentoController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/{estabelecimentoId}/fotos-ambiente")
     public List<Foto> getFotosAmbiente(@PathVariable Long estabelecimentoId) {
         return estabelecimentoService.getFotosAmbiente(estabelecimentoId);
     }
 
-
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping
     public List<EstabelecimentoResponseDto> listarTodos() {
         return estabelecimentoService.listarTodos().stream().map(estabelecimento -> estabelecimentoMapper.estabelecimentoToestabelecimentoResponseDto(estabelecimento)).collect(Collectors.toList());

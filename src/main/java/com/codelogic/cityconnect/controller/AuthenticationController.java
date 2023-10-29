@@ -5,6 +5,7 @@ import com.codelogic.cityconnect.dto.JwtResponseDto;
 import com.codelogic.cityconnect.model.Usuario;
 import com.codelogic.cityconnect.service.JwtTokenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

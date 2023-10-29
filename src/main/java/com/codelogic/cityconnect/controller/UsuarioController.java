@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class UsuarioController {
         this.modelMapper = modelMapper;
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponseDto> buscarPorId(@PathVariable Long id) {
         Optional<Usuario> entity = usuarioService.buscarPorId(id);
@@ -38,21 +40,16 @@ public class UsuarioController {
         }
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping
     public List<UsuarioResponseDto> listarTodos() {
         return usuarioService.listarTodos().stream().map(usuario -> modelMapper.map(usuario, UsuarioResponseDto.class)).collect(Collectors.toList());
     }
 
+    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping
     public UsuarioResponseDto criar(@RequestBody @Valid UsuarioRequestDto usuarioRequestDto) {
         Usuario usuario = modelMapper.map(usuarioRequestDto, Usuario.class);
         return modelMapper.map(usuarioService.salvar(usuario), UsuarioResponseDto.class);
     }
-
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Void> deletarPorId(@PathVariable Long id) {
-//        buscarPorId(id);
-//        usuarioService.deletarPorId(id);
-//        return ResponseEntity.noContent().build();
-//    }
 }

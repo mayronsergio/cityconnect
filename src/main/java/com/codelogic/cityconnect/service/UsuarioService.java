@@ -2,6 +2,7 @@ package com.codelogic.cityconnect.service;
 
 import com.codelogic.cityconnect.exception.BusinessExcetion;
 import com.codelogic.cityconnect.model.Usuario;
+import com.codelogic.cityconnect.model.enums.Role;
 import com.codelogic.cityconnect.repository.UsuarioRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ public class UsuarioService extends GenericService<Usuario, Long> {
         if (usuario != null){
             throw new BusinessExcetion("Este email já está cadastrado");
         }
+        entidade.setRole(Role.ROLE_USER);
         entidade.setPassword(new BCryptPasswordEncoder().encode(entidade.getPassword()));
         return super.salvar(entidade);
     }
