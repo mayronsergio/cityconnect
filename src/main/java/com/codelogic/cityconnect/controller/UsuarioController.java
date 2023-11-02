@@ -28,7 +28,7 @@ public class UsuarioController {
         this.modelMapper = modelMapper;
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponseDto> buscarPorId(@PathVariable Long id) {
         Optional<Usuario> entity = usuarioService.buscarPorId(id);
@@ -40,13 +40,12 @@ public class UsuarioController {
         }
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping
     public List<UsuarioResponseDto> listarTodos() {
         return usuarioService.listarTodos().stream().map(usuario -> modelMapper.map(usuario, UsuarioResponseDto.class)).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping
     public UsuarioResponseDto criar(@RequestBody @Valid UsuarioRequestDto usuarioRequestDto) {
         Usuario usuario = modelMapper.map(usuarioRequestDto, Usuario.class);
