@@ -43,7 +43,7 @@ public class SecurityConfiguration {
                 .csrf(csrg -> csrg.disable())
                 .authorizeHttpRequests(authorizeConfig -> authorizeConfig
                     .requestMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**", "/v3/api-docs.yaml").permitAll()
-                    .requestMatchers(RequestMethod.POST, "/api/auth", "/api/usuario").permitAll()
+                    .requestMatchers("/api/auth", "/api/usuario").permitAll()
                     .anyRequest().authenticated()
                     )
                     .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class).build();
