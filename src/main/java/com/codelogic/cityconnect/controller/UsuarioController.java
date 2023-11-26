@@ -7,6 +7,7 @@ import com.codelogic.cityconnect.service.UsuarioService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -46,7 +47,8 @@ public class UsuarioController {
         return usuarioService.listarTodos().stream().map(usuario -> modelMapper.map(usuario, UsuarioResponseDto.class)).collect(Collectors.toList());
     }
 
-    @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
+
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public UsuarioResponseDto criar(@RequestBody @Valid UsuarioRequestDto usuarioRequestDto) {
         Usuario usuario = modelMapper.map(usuarioRequestDto, Usuario.class);

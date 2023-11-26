@@ -32,4 +32,5 @@ public class EstabelecimentoRequestDto{
     private String cidade;
     @NotBlank(message = "Por favor, informe a uf do seu estado.")
     private String uf;
+    private String linkMaps;
 }

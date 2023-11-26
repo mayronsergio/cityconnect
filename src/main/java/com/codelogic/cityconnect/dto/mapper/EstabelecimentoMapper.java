@@ -28,6 +28,7 @@ public class EstabelecimentoMapper {
             map().getEndereco().setNumero(source.getNumero());
             map().getEndereco().setCidade(source.getCidade());
             map().getEndereco().setUf(source.getUf());
+            map().getEndereco().setLinkMaps(source.getLinkMaps());
             skip(destination.getFotoPerfil());
             skip(destination.getFotosAmbiente());
         }
