@@ -37,15 +37,12 @@ public class Estabelecimento {
     private List<Avaliacao> avaliacoes;
 
     public double calcularMediaNotas() {
-        if (avaliacoes.isEmpty()) {
+        int numAvaliacoes = avaliacoes.size();
+        if (numAvaliacoes == 0) {
             return 0.0;
         }
 
-        double somaNotas = 0.0;
-        for (Avaliacao avaliacao : avaliacoes) {
-            somaNotas += avaliacao.getNota();
-        }
-
-        return somaNotas / avaliacoes.size();
+        double somaNotas = avaliacoes.stream().mapToDouble(Avaliacao::getNota).sum();
+        return somaNotas / numAvaliacoes;
     }
 }

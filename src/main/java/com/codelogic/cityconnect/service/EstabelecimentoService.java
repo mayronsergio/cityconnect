@@ -23,6 +23,8 @@ public class EstabelecimentoService extends GenericService<Estabelecimento, Long
 
     private final EnderecoRepository enderecoRepository;
 
+    private final EstabelecimentoRepository estabelecimentoRepository;
+
     private final FotoService fotoService;
 
 
@@ -31,6 +33,7 @@ public class EstabelecimentoService extends GenericService<Estabelecimento, Long
                                   EstabelecimentoMapper estabelecimentoMapper,
                                   FotoService fotoService) {
         super(estabelecimentoRepository);
+        this.estabelecimentoRepository = estabelecimentoRepository;
         this.estabelecimentoMapper = estabelecimentoMapper;
         this.enderecoRepository = enderecoRepository;
         this.fotoService = fotoService;
@@ -72,6 +75,11 @@ public class EstabelecimentoService extends GenericService<Estabelecimento, Long
         Estabelecimento estabelecimento = buscarPorId(idEstabelecimento).orElseThrow(()-> new ResourceNotFoundException("Estabelecimento não encotrado."));
         estabelecimento.getFotoPerfil().setId(idFoto);
         repository.save(estabelecimento);
+    }
+
+    @Override
+    public Optional<T> buscarPorId(ID id) {
+        estabelecimentoRepository.findByIdWithAvaliacoes(id);
     }
 
     public void adicionarFotoAmbiente(Long idEstabelecimento, MultipartFile fotoAmbiente) throws IOException {
