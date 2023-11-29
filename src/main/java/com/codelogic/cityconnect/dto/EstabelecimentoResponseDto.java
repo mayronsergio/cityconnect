@@ -15,6 +15,7 @@ public class EstabelecimentoResponseDto {
     private String nome;
     private TipoEstabelecimento tipo;
     private String descricao;
+    private double mediaNotas;
     private byte[] fotoPerfil;
 //    private List<MultipartFile> fotosAmbiente;
     private Endereco endereco;

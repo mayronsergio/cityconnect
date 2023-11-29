@@ -32,4 +32,20 @@ public class Estabelecimento {
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Endereco endereco;
+
+    @OneToMany(mappedBy = "estabelecimento", fetch = FetchType.LAZY)
+    private List<Avaliacao> avaliacoes;
+
+    public double calcularMediaNotas() {
+        if (avaliacoes.isEmpty()) {
+            return 0.0;
+        }
+
+        double somaNotas = 0.0;
+        for (Avaliacao avaliacao : avaliacoes) {
+            somaNotas += avaliacao.getNota();
+        }
+
+        return somaNotas / avaliacoes.size();
+    }
 }

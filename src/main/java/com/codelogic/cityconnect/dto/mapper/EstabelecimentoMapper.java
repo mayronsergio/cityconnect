@@ -38,6 +38,7 @@ public class EstabelecimentoMapper {
         @Override
         protected void configure() {
             map().setFotoPerfil(source.getFotoPerfil().getBase64Data());
+            map().setMediaNotas(source.calcularMediaNotas());
         }
     };
 
