@@ -2,7 +2,6 @@ package com.codelogic.cityconnect.model;
 
 import com.codelogic.cityconnect.model.enums.TipoEstabelecimento;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,6 +21,7 @@ public class Estabelecimento {
     @Enumerated(EnumType.STRING)
     private TipoEstabelecimento tipo;
 
+    @Column(length = 1000)
     private String descricao;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
