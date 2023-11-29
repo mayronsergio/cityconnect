@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EstabelecimentoService extends GenericService<Estabelecimento, Long> {
@@ -76,10 +77,10 @@ public class EstabelecimentoService extends GenericService<Estabelecimento, Long
         estabelecimento.getFotoPerfil().setId(idFoto);
         repository.save(estabelecimento);
     }
-
+    
     @Override
-    public Optional<T> buscarPorId(ID id) {
-        estabelecimentoRepository.findByIdWithAvaliacoes(id);
+    public Optional<Estabelecimento> buscarPorId(Long id) {
+    	return estabelecimentoRepository.findByIdWithAvaliacoes(id);
     }
 
     public void adicionarFotoAmbiente(Long idEstabelecimento, MultipartFile fotoAmbiente) throws IOException {
