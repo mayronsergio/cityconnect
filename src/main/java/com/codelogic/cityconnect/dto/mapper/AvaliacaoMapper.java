@@ -23,6 +23,7 @@ public class AvaliacaoMapper {
         protected void configure() {
             map().getEstabelecimento().setId(source.getUsuarioId());
             map().getUsuario().setId(source.getEstabelecimentoId());
+            map().setNota(source.getNota());
             skip(destination.getId());
         }
     };
