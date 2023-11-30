@@ -2,6 +2,7 @@ package com.codelogic.cityconnect.controller;
 
 import com.codelogic.cityconnect.dto.EstabelecimentoRequestDto;
 import com.codelogic.cityconnect.dto.EstabelecimentoResponseDto;
+import com.codelogic.cityconnect.dto.EstabelecimentoSingleResponseDto;
 import com.codelogic.cityconnect.dto.mapper.EstabelecimentoMapper;
 import com.codelogic.cityconnect.model.Estabelecimento;
 import com.codelogic.cityconnect.model.Foto;
@@ -47,10 +48,10 @@ public class EstabelecimentoController {
 
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/{id}")
-    public ResponseEntity<EstabelecimentoResponseDto> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<EstabelecimentoSingleResponseDto> buscarPorId(@PathVariable Long id) {
         Optional<Estabelecimento> entity = estabelecimentoService.buscarPorId(id);
         if (entity.isPresent()) {
-            EstabelecimentoResponseDto estabelecimentoResponseDto = estabelecimentoMapper.estabelecimentoToestabelecimentoResponseDto(entity.get());
+            EstabelecimentoSingleResponseDto estabelecimentoResponseDto = estabelecimentoMapper.estabelecimentoToEstabelecimentoSingleResponseDto(entity.get());
             return ResponseEntity.ok(estabelecimentoResponseDto);
         } else {
             return ResponseEntity.notFound().build();

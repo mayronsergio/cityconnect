@@ -18,6 +18,7 @@ public class EstabelecimentoMapper {
         this.modelMapper = modelMapper;
         this.modelMapper.addMappings(configMapperModel);
         this.modelMapper.addMappings(configMapperDto);
+        this.modelMapper.addMappings(configMapperSingleDto);
     }
 
     PropertyMap<EstabelecimentoRequestDto, Estabelecimento> configMapperModel = new PropertyMap<EstabelecimentoRequestDto, Estabelecimento>() {
@@ -59,5 +60,9 @@ public class EstabelecimentoMapper {
 
     public EstabelecimentoResponseDto estabelecimentoToestabelecimentoResponseDto(Estabelecimento estabelecimento){
         return modelMapper.map(estabelecimento, EstabelecimentoResponseDto.class);
+    }
+
+    public EstabelecimentoSingleResponseDto estabelecimentoToEstabelecimentoSingleResponseDto(Estabelecimento estabelecimento){
+        return modelMapper.map(estabelecimento, EstabelecimentoSingleResponseDto.class);
     }
 }
