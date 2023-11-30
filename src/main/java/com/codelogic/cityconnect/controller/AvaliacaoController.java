@@ -2,6 +2,7 @@ package com.codelogic.cityconnect.controller;
 
 import com.codelogic.cityconnect.dto.AvaliacaoRequestDto;
 import com.codelogic.cityconnect.dto.AvaliacaoResponseDto;
+import com.codelogic.cityconnect.dto.mapper.AvaliacaoMapper;
 import com.codelogic.cityconnect.model.Avaliacao;
 import com.codelogic.cityconnect.service.AvaliacaoService;
 import org.springframework.data.domain.Pageable;
@@ -15,15 +16,18 @@ import java.util.List;
 public class AvaliacaoController {
 
     private final AvaliacaoService avaliacaoService;
+    
+    private AvaliacaoMapper avaliacaoMapper;
 
-    public AvaliacaoController(AvaliacaoService avaliacaoService) {
+    public AvaliacaoController(AvaliacaoService avaliacaoService,AvaliacaoMapper avaliacaoMapper) {
         this.avaliacaoService = avaliacaoService;
+        this.avaliacaoMapper = avaliacaoMapper;
     }
 
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")
     @PostMapping
-    public Avaliacao salvar(@RequestBody AvaliacaoRequestDto avaliacaoDto) {
-        return avaliacaoService.salvar(avaliacaoDto);
+    public AvaliacaoResponseDto salvar(@RequestBody AvaliacaoRequestDto avaliacaoDto) {
+        return avaliacaoMapper.avaliacaoToavaliacaoResponseDto(avaliacaoService.salvar(avaliacaoDto)) ;
     }
 
     @PreAuthorize("hasAnyAuthority('ROLE_USER', 'ROLE_ADMIN')")

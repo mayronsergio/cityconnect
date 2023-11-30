@@ -57,7 +57,7 @@ public class Estabelecimento {
         }
 
         return avaliacoes.stream()
-                .map(avaliacao -> new AvaliacaoResponseDto(avaliacao.getComentario(), avaliacao.getUsuario().getNome()))
+                .map(avaliacao -> new AvaliacaoResponseDto(avaliacao.getUsuario().getNome(), avaliacao.getComentario()))
                 .collect(Collectors.toList());
     }
 

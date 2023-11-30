@@ -21,8 +21,8 @@ public class AvaliacaoMapper {
     PropertyMap<AvaliacaoRequestDto, Avaliacao> configMapperModel = new PropertyMap<AvaliacaoRequestDto, Avaliacao>() {
         @Override
         protected void configure() {
-            map().getEstabelecimento().setId(source.getUsuarioId());
-            map().getUsuario().setId(source.getEstabelecimentoId());
+            map().getEstabelecimento().setId(source.getEstabelecimentoId());
+            map().getUsuario().setId(source.getUsuarioId());
             map().setNota(source.getNota());
             skip(destination.getId());
         }
