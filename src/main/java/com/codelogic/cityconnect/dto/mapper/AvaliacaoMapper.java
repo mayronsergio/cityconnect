@@ -32,7 +32,7 @@ public class AvaliacaoMapper {
         @Override
         protected void configure() {
             map().setComentario(source.getComentario());
-            map().setNomeUsuario(source.getUsuario().getNome());
+            map().setIdUsuario(source.getUsuario().getId());
         }
     };
 
