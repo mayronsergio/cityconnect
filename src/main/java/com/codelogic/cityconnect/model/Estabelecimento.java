@@ -1,11 +1,15 @@
 package com.codelogic.cityconnect.model;
 
+import com.codelogic.cityconnect.dto.AvaliacaoResponseDto;
 import com.codelogic.cityconnect.model.enums.TipoEstabelecimento;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -45,5 +49,22 @@ public class Estabelecimento {
         double somaNotas = avaliacoes.stream().mapToDouble(Avaliacao::getNota).sum();
         
         return somaNotas / numAvaliacoes;
+    }
+
+    public List<AvaliacaoResponseDto> obterAvaliacoesSimplificadas() {
+        if (avaliacoes == null || avaliacoes.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        return avaliacoes.stream()
+                .map(avaliacao -> new AvaliacaoResponseDto(avaliacao.getComentario(), avaliacao.getUsuario().getNome()))
+                .collect(Collectors.toList());
+    }
+
+    public List<byte[]> obterFotosAmbiente() {
+        if (fotosAmbiente == null || fotosAmbiente.isEmpty()){
+            return Collections.emptyList();
+        }
+        return fotosAmbiente.stream().map(Foto::getBase64Data).collect(Collectors.toList());
     }
 }

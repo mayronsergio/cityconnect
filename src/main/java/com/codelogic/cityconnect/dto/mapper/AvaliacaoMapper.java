@@ -30,10 +30,8 @@ public class AvaliacaoMapper {
     PropertyMap<Avaliacao, AvaliacaoResponseDto> configModelMapper = new PropertyMap<Avaliacao, AvaliacaoResponseDto>() {
         @Override
         protected void configure() {
-            map().setId(source.getId());
-            map().setEstabelecimentoId(source.getEstabelecimento().getId());
-            map().setUsuarioId(source.getUsuario().getId());
             map().setComentario(source.getComentario());
+            map().setNomeUsuario(source.getUsuario().getNome());
         }
     };
 

@@ -2,6 +2,7 @@ package com.codelogic.cityconnect.dto.mapper;
 
 import com.codelogic.cityconnect.dto.EstabelecimentoRequestDto;
 import com.codelogic.cityconnect.dto.EstabelecimentoResponseDto;
+import com.codelogic.cityconnect.dto.EstabelecimentoSingleResponseDto;
 import com.codelogic.cityconnect.model.Estabelecimento;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -39,6 +40,16 @@ public class EstabelecimentoMapper {
         protected void configure() {
             map().setFotoPerfil(source.getFotoPerfil().getBase64Data());
             map().setMediaNotas(source.calcularMediaNotas());
+        }
+    };
+
+    PropertyMap<Estabelecimento, EstabelecimentoSingleResponseDto> configMapperSingleDto = new PropertyMap<Estabelecimento, EstabelecimentoSingleResponseDto>() {
+        @Override
+        protected void configure() {
+            map().setFotoPerfil(source.getFotoPerfil().getBase64Data());
+            map().setMediaNotas(source.calcularMediaNotas());
+            map().setFotosAmbiente(source.obterFotosAmbiente());
+            map().setAvaliacoes(source.obterAvaliacoesSimplificadas());
         }
     };
 
