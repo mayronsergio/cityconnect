@@ -33,6 +33,6 @@ public class AuthenticationController {
 
         Usuario usuario = (Usuario) authentication.getPrincipal();
 
-        return new JwtResponseDto(usuario.getNome(), jwtTokenService.gerarToken(usuario));
+        return new JwtResponseDto(usuario.getId(), usuario.getNome(), jwtTokenService.gerarToken(usuario));
     }
 }

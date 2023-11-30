@@ -1,4 +1,4 @@
 package com.codelogic.cityconnect.dto;
 
-public record JwtResponseDto(String nome, String token) {
+public record JwtResponseDto(Long idUsuario, String nome, String token) {
 }
